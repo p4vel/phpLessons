@@ -18,6 +18,29 @@
 		return $subject_set;
 	}
 
+	function find_subject_by_id($subject_id)
+	{
+		global $connection;
+
+		$safe_subject_id = mysqli_real_escape_string($connection, $subject_id);
+
+		$query  = "SELECT * ";
+		$query .= "FROM subjects ";
+		$query .= "WHERE id = {$safe_subject_id} ";
+		$query .= "LIMIT 1";
+		$subject_set = mysqli_query($connection, $query);
+		
+		confirm_query($subject_set);
+
+		if ($subject = mysqli_fetch_assoc($subject_set)){
+			return $subject;
+		} else {
+			return null;
+		}
+
+
+	}
+
 	function find_pages_for_subject($subject_id){
 		global $connection;
 		$query  = "SELECT * ";
