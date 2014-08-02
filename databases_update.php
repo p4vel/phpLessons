@@ -1,9 +1,9 @@
 <?php 
 	// 1. Create a database connection
-	$dbhost = "localhost";
-	$dbuser = "mczerny";
-	$dbpass = "start123";
-	$dbname = "lynda_com";
+	$dbhost = "db537709704.db.1and1.com";
+	$dbuser = "dbo537709704";
+	$dbpass = "drexakQ2Llr?";
+	$dbname = "db537709704";
 
 	$connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
