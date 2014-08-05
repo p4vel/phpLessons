@@ -12,4 +12,12 @@
 			return $output;
 		} 
 	}
+	function errors()
+	{
+		if (isset($_SESSION["fehler"])) {
+			$errors = $_SESSION["fehler"];
+			$_SESSION["fehler"] = null;
+			return $errors;
+		} 
+	}
 ?>

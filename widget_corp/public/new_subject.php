@@ -9,6 +9,8 @@
 	</div>
 	<div id="page">
 		<?php echo message(); ?>
+		<?php $errors = errors(); ?>
+		<?php echo form_errors($errors); ?>
 		<h2>Create Page</h2>
 		<form action="create_subject.php" method="post">
 			<p>
