@@ -43,7 +43,8 @@ if (isset($_POST["submit"])) {
 				redirect_to("manage_content.php");
 			} else {
 				// Failure
-				$_SESSION["message"] = "Subject creation failed.";
+				$_SESSION["message"] = "Subject update failed.";
+				redirect_to("manage_content.php?subject={$current_subject["id"]}");
 			}
 		}
 	} else {
@@ -59,15 +60,15 @@ if (isset($_POST["submit"])) {
 	<div id="page">
 		<?php 
 			if(!empty($message)){
-				echo message();	
+				echo "<div class=\"message\">" . htmlentities($message) . "</div>";	
 			}
 		?>
 		<?php echo form_errors($errors); ?>
-		<h2>Edit Page: <?php echo $current_subject["menu_name"]; ?> </h2>
-		<form action="edit_subject.php?subject=<?php echo $current_subject["id"]; ?>" method="post">
+		<h2>Edit Page: <?php echo htmlentities($current_subject["menu_name"]); ?> </h2>
+		<form action="edit_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>" method="post">
 			<p>
 				Subject Name:
-				<input type="text" name="menu_name" value="<?php echo $current_subject["menu_name"]; ?>" />
+				<input type="text" name="menu_name" value="<?php echo htmlentities($current_subject["menu_name"]); ?>" />
 			</p>
 			<p>
 				Position:
@@ -94,6 +95,8 @@ if (isset($_POST["submit"])) {
 		</form>
 		<br />
 		<a href="manage_content.php">Cancel</a>
+		&nbsp;&nbsp;
+		<a href="deleted_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>" onclick="return confirm('Are you sure?');">Delete Subject</a>
 	</div>
 </div>
 
