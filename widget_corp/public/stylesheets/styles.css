@@ -55,7 +55,7 @@ ul.pages {padding-left: 2em; list-style: square; font-weight: normal;}
 
 /* Page Content */
 #page{
-	float: left; height: 100%;
+	float: left; height: 100%; 
 	padding-left: 2em; vertical-align: top;
 	background: #EEE4B9;
 }

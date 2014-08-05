@@ -1,7 +1,7 @@
 <?php require_once '../includes/session.php'; ?>
 <?php require_once '../includes/db_connection.php'; ?>
 <?php require_once '../includes/functions.php'; ?>
-<?php 
+<?php
 	$current_subject = find_subject_by_id($_GET["subject"]);
 	if (!$current_subject) {
 		redirect_to("manage_content.php");

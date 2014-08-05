@@ -8,7 +8,7 @@
 		redirect_to("manage_content.php");
 	}
 ?>
-<?php 
+<?php
 if (isset($_POST["submit"])) {
 		// Process the form
 		// Often these are form values in $_POST
@@ -36,7 +36,7 @@ if (isset($_POST["submit"])) {
 			$query .= "LIMIT 1;";
 			$result = mysqli_query($connection, $query);
 
-			if ($result && mysqli_affected_rows($connection) == 1) {
+			if ($result && mysqli_affected_rows($connection) >= 0) {
 				// success
 				// redirect_to("somepage.php");
 				$_SESSION["message"] = "Subject updated.";
