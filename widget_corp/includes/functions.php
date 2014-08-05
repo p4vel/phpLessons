@@ -108,7 +108,7 @@
 	// - the current subject array or null
 	// - the currently page array or null
 	function navigation($subject_array, $page_array)
-	{
+	{	
 		$output = "<ul class=\"subjects\">";
 		$subject_set = find_all_subjects();
 		while ($subject = mysqli_fetch_assoc($subject_set)) {
