@@ -53,6 +53,7 @@ if (isset($_POST["submit"])) {
 		// redirect_to("new_subject.php");
 	}	// end: if (isset($_POST["submit"]))
  ?>
+ <?php $layout_context = 'admin'; ?>
 <?php include '../includes/layouts/header.php'; ?>
 
 <div id="main">
@@ -77,7 +78,7 @@ if (isset($_POST["submit"])) {
 				<select name="position">
 				<?php
 					$amount_subpages = find_subjectid_by_pageid($current_page["id"]);
-					$page_set = find_pages_for_subject($amount_subpages);
+					$page_set = find_pages_for_subject($amount_subpages, false);
 					$page_count = mysqli_num_rows($page_set);
 					for ($count=1; $count <= ($page_count) ; $count++) { 
 						echo "<option value=\"{$count}\"";

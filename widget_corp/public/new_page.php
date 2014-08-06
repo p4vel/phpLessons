@@ -1,6 +1,7 @@
 <?php require_once '../includes/session.php'; ?>
 <?php require_once '../includes/db_connection.php'; ?>
 <?php require_once '../includes/functions.php'; ?>
+<?php $layout_context = 'admin'; ?>
 <?php include '../includes/layouts/header.php'; ?>
 <?php find_selected_page() ?>
 
@@ -23,7 +24,7 @@
 				Position:
 				<select name="position">
 				<?php
-					$page_set = find_pages_for_subject($current_subject['id']);
+					$page_set = find_pages_for_subject($current_subject['id'], false);
 					$page_count = mysqli_num_rows($page_set);
 					
 					for ($count=1; $count <= ($page_count + 1) ; $count++) { 
