@@ -106,6 +106,21 @@
 		return $page_set;
 	}
 
+	function find_subjectid_by_pageid($page_id)
+	{
+		global $connection;
+		$query  = "SELECT subject_id ";
+		$query .= "FROM pages ";
+		$query .= "WHERE id = {$page_id} ";
+		$query .= "LIMIT 1";
+		$subjectID = mysqli_query($connection, $query);
+		
+		confirm_query($subjectID);
+
+		$subjectID = mysqli_fetch_assoc($subjectID);
+		return $subjectID["subject_id"];
+	}
+
 	// navigation takes 2 arguments
 	// - the current subject array or null
 	// - the currently page array or null

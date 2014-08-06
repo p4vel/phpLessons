@@ -36,6 +36,8 @@
 					<div class="view_content">
 					<?php echo htmlentities($current_page["content"]); ?>
 					</div>
+					<br />		
+					<a href="edit_page.php?page=<?php echo urlencode($current_page["id"]); ?>">Edit Page</a>
 		<?php } else { ?>
 					Please select a subject or a page
 		<?php } ?>
