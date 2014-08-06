@@ -24,6 +24,8 @@
 					Visible: <?php echo $current_subject["visible"] == 1 ? 'yes' : 'no'; ?>
 					<br />
 					<a href="edit_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>">Edit Subject</a>
+					<br />
+					<a href="new_page.php?subject=<?php echo urlencode($current_subject["id"]); ?>">Create Page in this Subject</a>
 		<?php } elseif ($current_page) { ?>
 					<h2>Manage Page</h2>
 					Menu Name: <?php  echo htmlentities($current_page["menu_name"]); ?>

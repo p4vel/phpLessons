@@ -76,8 +76,8 @@ if (isset($_POST["submit"])) {
 				Position:
 				<select name="position">
 				<?php
-					$x = find_subjectid_by_pageid($current_page["id"]);
-					$page_set = find_pages_for_subject($x);
+					$amount_subpages = find_subjectid_by_pageid($current_page["id"]);
+					$page_set = find_pages_for_subject($amount_subpages);
 					$page_count = mysqli_num_rows($page_set);
 					for ($count=1; $count <= ($page_count) ; $count++) { 
 						echo "<option value=\"{$count}\"";
@@ -95,14 +95,14 @@ if (isset($_POST["submit"])) {
 				<input type="radio" name="visible" value="1" <?php if($current_page["visible"] == 1) echo "checked"; ?>/> Yes
 			</p>
 			<p>		
-				<textarea name="content"><?php echo $current_page["content"]; ?></textarea>
+				<textarea name="content"><?php echo htmlentities($current_page["content"]); ?></textarea>
 			</p>
 			<input type="submit" name="submit" value="Edit page" />
 		</form>
 		<br />
 		<a href="manage_content.php">Cancel</a>
 		&nbsp;&nbsp;
-		<a href="deleted_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>" onclick="return confirm('Are you sure?');">Delete Subject</a>
+		<a href="delete_page.php?page=<?php echo urlencode($current_page["id"]); ?>" onclick="return confirm('Are you sure?');">Delete Page</a>
 	</div>
 </div>
 

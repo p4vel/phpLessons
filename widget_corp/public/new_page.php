@@ -12,19 +12,21 @@
 		<?php echo message(); ?>
 		<?php $errors = errors(); ?>
 		<?php echo form_errors($errors); ?>
-		<h2>Create Page</h2>
-		<form action="create_subject.php" method="post">
+		<h2>Create Page on <?php echo $current_subject["menu_name"]; ?></h2>
+		<form action="create_page.php" method="post">
 			<p>
-				Subject Name:
+				Page Name:
 				<input type="text" name="menu_name" value="" />
+				<input type="hidden" name="subject_id" value="<?php echo $current_subject["id"]; ?>" />
 			</p>
 			<p>
 				Position:
 				<select name="position">
 				<?php
-					$subject_set = find_all_subjects();
-					$subject_count = mysqli_num_rows($subject_set);
-					for ($count=1; $count <= ($subject_count + 1) ; $count++) { 
+					$page_set = find_pages_for_subject($current_subject['id']);
+					$page_count = mysqli_num_rows($page_set);
+					
+					for ($count=1; $count <= ($page_count + 1) ; $count++) { 
 						echo "<option value=\"{$count}\">{$count}</option>";
 					}
 				?>
@@ -35,7 +37,10 @@
 				&nbsp;
 				<input type="radio" name="visible" value="1" /> Yes
 			</p>
-			<input type="submit" name="submit" value="Create Subject" />
+			<p>
+				<textarea name="content">your content ...</textarea>
+			</p>
+			<input type="submit" name="submit" value="Create Page" />
 		</form>
 		<br />
 		<a href="manage_content.php">Cancel</a>
