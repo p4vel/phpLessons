@@ -50,7 +50,7 @@
 	{
 		global $connection;
 
-		$safe_subject_id = mysqli_real_escape_string($connection, $subject_id);
+		$safe_admin_id = mysqli_real_escape_string($connection, $admin_id);
 
 		$query  = "SELECT * ";
 		$query .= "FROM admins ";
@@ -61,6 +61,47 @@
 		confirm_query($admin_set);
 
 		if ($admin = mysqli_fetch_assoc($admin_set)){
+			return $admin;
+		} else {
+			return null;
+		}
+	}
+
+	function find_admin_by_username($username)
+	{
+		global $connection;
+
+		$safe_username = mysqli_real_escape_string($connection, $username);
+
+		$query  = "SELECT * ";
+		$query .= "FROM admins ";
+		$query .= "WHERE username = '{$safe_username}' ";
+		$query .= "LIMIT 1";
+		$admin_set = mysqli_query($connection, $query);
+		confirm_query($admin_set);
+
+		if ($admin = mysqli_fetch_assoc($admin_set)){
+			// print_r($admin);
+			return $admin;
+		} else {
+			return null;
+		}
+	}
+	function get_hashed_password_by_username($username)
+	{
+		global $connection;
+
+		$safe_username = mysqli_real_escape_string($connection, $username);
+
+		$query  = "SELECT * ";
+		$query .= "FROM admins ";
+		$query .= "WHERE username = '{$username}' ";
+		$query .= "LIMIT 1";
+		$admin_set = mysqli_query($connection, $query);
+
+		confirm_query($admin_set);
+
+		if ($admin = mysqli_fetch_assoc($admin_set)) {
 			return $admin;
 		} else {
 			return null;
@@ -277,5 +318,26 @@
 			$current_page = null;
 		}
 		// return true;
+	}
+	function attempt_login($username, $password)
+	{
+		$admin = find_admin_by_username($username);
+		//print_r($admin);
+		if (admin) {
+			// found admin, now check password
+			$admin = get_hashed_password_by_username($username);
+			// echo $username . " ->>>" . $admin['hashed_password'];
+			if(md5($password) === $admin['hashed_password']){
+				// password machtes
+				// echo "check";
+				return $admin;
+			} else {
+				return false;
+			}
+
+		} else {
+			// admin not found 
+			return false;
+		}
 	}
 ?>

@@ -11,29 +11,23 @@ if (isset($_POST['submit'])) {
 	$required_fields = array("username", "password");
 	validate_presences($required_fields);
 
-	$fields_with_max_length = array("username" => 30);
-	validate_max_length($fields_with_max_length);
-
 	if(empty($errors)){
-		// perform creation
+		// Attempt Login
 
-		$username = mysql_prep($_POST["username"]);
-		$hashed_password = md5($_POST["password"]);
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$found_admin = attempt_login($username, $password);
 
-		$query 	= "INSERT INTO admins (";
-		$query .= " username, hashed_password";
-		$query .= ") VALUES (";
-		$query .= " '{$username}', '{$hashed_password}'";
-		$query .= ")";
-		$result = mysqli_query($connection, $query);
-
-		if($result){
+		if($found_admin){
 			// success
-			$_SESSION["message"] = "Admin created";
-			redirect_to("manage_admins.php");
+			// mark user as logged in
+			//print_r($found_admin);
+			$_SESSION["admin_id"] = $found_admin["id"];
+			$_SESSION["username"] = $found_admin["username"];
+			redirect_to("admin.php");
 		} else {
 			// failure
-			$_SESSION["message"] = "Admin creation failed!";
+			$_SESSION["message"] = "Username/Password not found!";
 		}
 	} else {
 		// possible get request?
@@ -48,24 +42,23 @@ if (isset($_POST['submit'])) {
 
 <div id="main">
 	<div id="navigation">
-		<?php  echo navigation($current_subject, $current_page);  ?>
+		&nbsp;
 	</div>
 	<div id="page">
 		<?php echo message(); ?>
 		<?php echo form_errors($errors); ?>
-		<h2>Create Admin</h2>
-		<form action="new_admin.php" method="post">
+		<h2>Login</h2>
+		<form action="login.php" method="post">
 			<p>
-				<input type="text" name="username" value="" />
+				<input type="text" name="username" value="<?php echo htmlentities($username); ?>" />
 			</p>
 			<p>
 				<input type="password" name="password" value="" />
 			</p>
 
-			<input type="submit" name="submit" value="Create Admin" />
+			<input type="submit" name="submit" value="Submit" />
 		</form>
-		<br />
-		<a href="manage_admins.php">Cancel</a>
+		
 	</div>
 </div>
 
