@@ -4,7 +4,7 @@
 
 <?php 
 	$admin_set = find_all_admins();
-	print_r($admin_set);
+	// print_r($admin_set);
 ?>
 
 <?php $layout_context = 'admin'; ?>
@@ -24,7 +24,7 @@
 				<th>Username</th>
 				<th>Actions</th>
 			</tr>
-			<?php while ($admin = mysql_fetch_assoc($admin_set)) { ?>
+			<?php while ($admin = mysqli_fetch_assoc($admin_set)) { ?>
 				<tr>
 					<td><?php echo htmlentities($admin["username"]); ?></td>
 					<td>
