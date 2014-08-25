@@ -41,7 +41,7 @@
 		$query .= "FROM admins ";
 		$query .= "ORDER BY username ASC;";
 		$admin_set = mysqli_query($connection, $query);
-		print_r($connection);
+		//print_r($connection);
 		confirm_query($admin_set);
 		return $admin_set;
 	}
