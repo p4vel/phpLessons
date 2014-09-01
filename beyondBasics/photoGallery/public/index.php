@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-<?php 
-require_once("../incl/database.php");
-
-if (isset($database)) {
-		 echo "true";
-	} else { 
-		echo "false";
-	}
-
-echo "<br />";
-
-echo "IS this working";
-
-=======
 <?php 
 require_once("../incl/database.php");
 
@@ -33,5 +18,4 @@ $result_set = $database->query($sql);
 $found_user = $database->fetch_array($result_set);
 echo $found_user['username'];
 
->>>>>>> df664a9cddba29f46fbe9a1f624b9a140cc783b6
 ?>
