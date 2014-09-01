@@ -24,7 +24,7 @@
 
 		$dt = time();
 		$mysqlDateTime = strftime("%Y-%m-%d %H:%M:%S", $dt);
-		echo $mysqlDateTime;
+		echo $mysqlDateTime  ;
 
 	?>
 
