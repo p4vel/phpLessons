@@ -31,8 +31,28 @@ class MySQLDatabase{
 	
 	public function query($sql){
 		$result = mysql_query($sql, $this->connection);
-		$this->confirm_query();
+		$this->confirm_query($result);
 		return $result;
+	}
+
+	public function fetch_array($result_set){
+		return mysql_fetch_array($result_set);
+	}
+
+	public function numRows($result_set)
+	{
+		return mysql_num_rows($result_set);
+	}
+
+	public function affected_rows()
+	{
+		return mysql_affected_rows($tis->connection);
+	}
+
+	public function insert_id()
+	{
+		// get teh last id inserted over the current db connection
+		return mysql_insert_id($this->connection);
 	}
 
 	private function confirm_query($result){
@@ -41,7 +61,7 @@ class MySQLDatabase{
 		}
 	}
 
-	public function mysql_prep($value){
+	public function escape_value($value){
 		$magic_quotes_active = get_magic_quotes_gpc();
 		$new_enough_php = function_exists("mysql_real_escape_string"); // i.e. PHP >= v4.3.0
 		if ($new_enough_php) { // PHP v. 4.3.0 or higher
@@ -55,6 +75,8 @@ class MySQLDatabase{
 		}
 		return $value;
 	}
+
+
 }
 
 $database = new MySQLDatabase();
