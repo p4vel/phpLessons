@@ -1,7 +1,7 @@
 <?php require_once '../includes/session.php'; ?>
 <?php require_once '../includes/db_connection.php'; ?>
 <?php require_once '../includes/functions.php'; ?>
-
+<?php confirm_logged_in(); ?>
 <?php 
 	$admin_set = find_all_admins();
 	// print_r($admin_set);
@@ -12,7 +12,8 @@
 
 <div id="main">
 	<div id="navigation">
-		&nbsp;
+		<br />
+		<a href="admin.php">&laquo; Main Menu</a>
 	</div>
 	<div id="page">
 		<?php echo message(); ?>
