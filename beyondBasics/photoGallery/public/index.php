@@ -1,6 +1,7 @@
 <?php 
+require_once("../incl/functions.php");
 require_once("../incl/database.php");
-require_once("../incl/user.php");
+//require_once("../incl/user.php");
 
 
 $user = User::find_by_id(1);
