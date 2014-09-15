@@ -1,0 +1,22 @@
+body{
+	background-color: light-gray;
+}
+table{
+	padding: 0;
+	margin: 0;
+}
+tr{
+	height: 27px;
+}
+td{
+	width: 85px;
+}
+tr.participation td{
+	cursor: pointer;
+}
+td{
+	background: url("../images/yes_no.png") no-repeat  0 0 transparent;
+}
+td.participate{
+	background: url("../images/yes_no.png") no-repeat 0 -32px transparent;
+}
