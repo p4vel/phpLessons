@@ -8,15 +8,18 @@ table{
 tr{
 	height: 27px;
 }
-td{
+#list td{
 	width: 85px;
+}
+td{
+	width: 95px;
 }
 tr.participation td{
 	cursor: pointer;
 }
-td{
+tr.participation td{
 	background: url("../images/yes_no.png") no-repeat  0 0 transparent;
 }
-td.participate{
+tr.participation  td.participate{
 	background: url("../images/yes_no.png") no-repeat 0 -32px transparent;
 }
