@@ -23,3 +23,9 @@ tr.participation td{
 tr.participation  td.participate{
 	background: url("../images/yes_no.png") no-repeat 0 -32px transparent;
 }
+div.date_column{
+	float: left;
+}
+tr.amount_participation>td{
+	background-color: #e3e3e3;
+}

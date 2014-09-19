@@ -1,6 +1,6 @@
 <?php 
 
-// A class to help work with sessions 
+// A class to help work with Sessions 
 // in our case primariky to manage logging users in and out
 
 // keep in mind when working with sessions that it is generally
@@ -44,9 +44,9 @@ class Session
 	}
 
 	private function check_login(){
-		if (isset($_SESSION['user_id'])); {
+		if (isset($_SESSION['user_id'])){
 			$this->user_id = $_SESSION['user_id'];
-			this->logged_in = true;
+			$this->logged_in = true;
 		} else {
 			unset($this->user_id);
 			$this->logged_in = false;
@@ -54,6 +54,6 @@ class Session
 	}
 }
 
-$Session = new Session();
+$session = new Session();
 
 ?>

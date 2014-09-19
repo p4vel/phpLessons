@@ -25,12 +25,12 @@
 				$next_dates[] =  $row['date'];
 			}
 
-			$sql = "SELECT * FROM org_users";
+			$sql = "SELECT * FROM org_users ORDER BY id";
 			$result = mysqli_query($connection, $sql);
 			$players = array();
 
 			while ($row = mysqli_fetch_assoc($result)){
-				$players[] =  $row['first_name'];
+				$players[] =  $row['first_name'] . "({$row['id']})";
 			}
 
 			for ($columns = -1; $columns < $total_dates_to_display; $columns++) { 
@@ -48,7 +48,7 @@
 					echo "</table>";
 					echo "</div>";
 				} else {
-					echo "<div style='float:left'>";
+					echo "<div class='date_column'>";
 					// DB-Query: Array mit Datum für bestimmten Filter (Datum, 5on5, Training)
 					echo "<table cellpadding=0 cellspacing=0 border=0";
 					echo "<tr class='date'><td style='background-color: #e3e3e3;'>{$next_dates[$columns]}</td></tr>";
@@ -70,7 +70,9 @@
 							ON
 								dates.id = dates_users.date_id
 							WHERE 
-								date_id = {$columns}+1
+								date_id = {$columns}+1 
+								AND
+								dates_users.participate = 1
 							ORDER BY
 								users.id";
 					$result = mysqli_query($connection, $sql);
@@ -94,10 +96,10 @@
 						echo "";
 						echo "</td></tr>";
 					}
-					echo "<tr class='amount_participation'>";
+					echo "<tr class='amount_participation'><td>";
 					// display amount of players with YES at the bottom of the column
-					echo "<td style='background-color: #e3e3e3; text-align: center'>{$amount_yes_per_day[$columns]}</td>";
-					echo "</tr>";
+					echo $amount_yes_per_day[$columns];
+					echo "</td></tr>";
 
 					echo "</table>";
 					echo "</div>";
@@ -106,6 +108,14 @@
 		?>
 		<div class="clearer" style="clear: both;"></div>
 	</div>
+
+	<?php 
+
+	$stringposition = strpos ( $test, '_' ); 
+	$text = substr($test,0,$stringposition) 
+
+	?>
+
 </body>
 </html>
 
