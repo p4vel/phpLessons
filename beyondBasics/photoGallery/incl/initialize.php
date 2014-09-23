@@ -24,4 +24,6 @@
 
 	// laod database-related classes
 	require_once(LIB_PATH.DS."user.php");
+
+	require_once(LIB_PATH.DS."log.php");
 ?>

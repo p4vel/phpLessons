@@ -25,5 +25,5 @@ foreach ($users as $user){
 ?>
 
 <?php 
-	include_layout_template('admin_footer.php');
+	include_layout_template('footer.php');
 ?>

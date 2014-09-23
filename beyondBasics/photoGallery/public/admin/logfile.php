@@ -4,8 +4,16 @@
 		redirect_to("login.php");
 	}
 ?>
+<?php 
+	if ($_GET['clear'] == 'true') {
+		if ($handle = fopen($log->logfile, 'w')){
+			file_put_contents($log->logfile, '');
+			$log->log_action("Logs Cleared", "by User ID {$session->user_id}");
+			redirect_to('logfile.php');
+		}
+	} 
+ ?>		
 <?php include_layout_template('admin_header.php');?>
-	
 <!-- 
 	[x] 	locate logs/log.txt useing SITE_ROOT and DS
 	[x] 	file exists?
@@ -14,57 +22,23 @@
 -->
 
 <h2>Menu</h2>
-<h3>LOGFILE ...</h3>
+<h3>LOGFILE ... (<a href="logfile.php?clear=true">Clear Logfile</a>)</h3>
 <?php 
-	$dir_log = SITE_ROOT.DS."logs";
-	$filename = "log.txt";
-	chdir($dir_log);
+
 	
-	if ($_GET['clear'] == true) {
-		if ($handle = fopen($filename, 'w')){
-			$string = 'test';
-			fwrite($handle, $string);
-			echo "log file cleared";
-			fclose($handle);
+
+	if (file_exists($log->logfile) && is_readable($log->logfile) && $handle = fopen($log->logfile, 'r')) {
+		echo "<ul class=\"log-entries\">";
+		while (!feof($handle)) {
+			$entry = fgets($handle);
+			echo "<li>{$entry}</li>";
 		}
+		echo "</ul>";
+		fclose($handle);
 	} else {
-		// echo getcwd() . "<br />";
-		if(!file_exists($filename)){				// if log file doesnt exist, create one
-			if ($handle = fopen($filename, 'w')){
-				echo "log file created.";
-				fclose($handle);
-			}
-		} else {									// if log file does exist, read content
-			if($handle = fopen($filename, 'r')){
-				// echo "log file found.";
-				// echo is_readable($filename) ? 'yes' : 'no';
-				$content = "";
-				$counter = 1;
-				while (!feof($handle)) {		// read every sinlge Line
-
-					$log_line = fgets($handle);
-					$stringposition = strpos($log_line, "|");
-					$log_date = substr($log_line, 0, $stringposition);
-					$log_msg = substr($log_line, $stringposition+2);
-
-					$content .= "<tr>";
-					$content .= "<td class=\"counter\">{$counter}</td>";
-					$content .= "<td class=\"log_date\">{$log_date}</td>";
-					$content .= "<td class=\"log_msg\">" . $log_msg. "</td>";
-					$content .= "</tr>";
-					$counter++;
-				}
-				echo "<table class='log'>";
-				// echo "<tr class=\"log_table_head\"><td>&nbsp;</td><td>log</td></tr>";
-				echo $content;
-				echo "</table>";
-		
-				echo "<hr />";
-				echo "<a href=\"logfile.php?clear=true\">click to clear logfile</a>";
-				fclose($handle);
-			}
-		}
+		echo "Couldn't read from {$log->logfile}";
 	}
+
 
 ?>
 
