@@ -21,12 +21,12 @@
 	chdir($dir_log);
 	
 	if ($_GET['clear'] == true) {
-			if ($handle = fopen($filename, 'w')){
-				$string = 'test';
-				fwrite($handle, $string);
-				echo "log file cleared";
-				fclose($handle);
-			}
+		if ($handle = fopen($filename, 'w')){
+			$string = 'test';
+			fwrite($handle, $string);
+			echo "log file cleared";
+			fclose($handle);
+		}
 	} else {
 		// echo getcwd() . "<br />";
 		if(!file_exists($filename)){				// if log file doesnt exist, create one
