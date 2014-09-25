@@ -52,7 +52,7 @@ class MySQLDatabase{
 
 	public function affected_rows()
 	{
-		return mysql_affected_rows($tis->connection);
+		return mysql_affected_rows($this->connection);
 	}
 
 	public function insert_id()
