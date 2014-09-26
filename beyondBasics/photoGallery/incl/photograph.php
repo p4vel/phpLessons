@@ -2,7 +2,7 @@
 
 	require_once(LIB_PATH.DS.'database.php');
 
-	class Photograph extends DatabaseObject{
+	class Photograph{
 
 		protected static $table_name = "photographs";
 		protected static $db_fields = array('id', 'filename', 'type', 'size', 'caption');
@@ -12,7 +12,7 @@
 		public $size;
 		public $caption;
 
-		private $temp_path;
+		public $temp_path;
 		protected $upload_dir="images";
 
 		public $errors=array();
@@ -42,7 +42,9 @@
 				return false;
 			} else {
 				// Set object attributes to the form parameters
-				$this->temp_path = $file['temp_name'];
+				// var_dump($file['tmp_name']);
+				// die();
+				$this->temp_path = $file['tmp_name'];
 				$this->filename  = basename($file['name']);
 				$this->type = $file['type'];
 				$this->size = $file['size'];
@@ -52,8 +54,7 @@
 
 		}
 
-		public function save()
-		{
+		public function save(){
 			// A new record won't have an id yet.
 			if (isset($this->id)) {
 				$this->update();
@@ -62,7 +63,7 @@
 				// 		Can't Save if there are pre-existing errors
 				if (!empty($this->errors)) {return false;}
 				//		Make sure the caption is not too long for the DB
-				if (strlen($this->caption) <= 255) {
+				if (strlen($this->caption) >= 255) {
 					$this->errors[] = "The caption can only be 255 chracters long.";
 					return false;
 				}
@@ -72,7 +73,8 @@
 					return false;
 				}
 				//		Determine the target_path
-				$target_path = SITE_ROOT .DS. 'public' .DS. $this->upload_dir .DS. $this->filename;
+				$this->target_path = SITE_ROOT .DS. 'public' .DS. $this->upload_dir .DS. $this->filename;
+	
 				//		Make sure a file doesn't already exist in the target location
 				if (file_exists($target_path)) {
 					$this->errors[] = "The file {$this->filename} already exsits.";
@@ -91,7 +93,7 @@
 				} else {
 					// Failure: File was not moved
 					$this->errors[] = "Teh file upload failed due to incorrect permissions on the uplod folder";
-					return false;
+					// return false;
 				}
 
 				// Save a corresponding entry to the database
@@ -99,13 +101,29 @@
 			}
 		}
 
+		public function image_path(){
+			return $this->upload_dir.DS.$this->filename;
+		}
+
+		public function size_as_text()		{
+			if ($this->size < 1024) {
+				return "{$this->size} bytes";
+			} elseif ($this->size < 1048576) {
+				$size_kb = round($this->size/1024);
+				return "{$size_kb} KB";
+			} else {
+				$size_mb = round($this->size/1048576, 1);
+				return "{$size_mb} MB";
+			}
+		}
+
 		public static function find_all(){
-			return self::find_by_sql("SELECT * FROM users");
+			return self::find_by_sql("SELECT * FROM " . self::$table_name);
 		}
 
 		public static function find_by_id($id=0){
 			global $database;
-			$result_array = self::find_by_sql("SELECT * FROM users WHERE id = {$id} LIMIT 1");
+		$result_array = self::find_by_sql("SELECT * FROM ($table_name} WHERE id = {$id} LIMIT 1");
 			return !empty($result_array) ? array_shift($result_array) : false;
 		}
 
@@ -122,8 +140,7 @@
 		} 
 
 
-		private static function instantiate($record)
-		{
+		private static function instantiate($record){
 			// Could check taht $record exists and is an array
 			$object = new self;
 			
@@ -158,8 +175,7 @@
 		// 	return isset($this->id) ? $this->update() : $this->create();
 		// }
 
-		protected function attributes()
-		{
+		protected function attributes(){
 			// returns an array of attributes and their values
 			// return get_object_vars($this);
 			$attributes = array();
@@ -171,8 +187,7 @@
 			return $attributes;
 		}
 
-		protected function sanitized_attributes()
-		{
+		protected function sanitized_attributes(){
 			global $database;
 			$clean_attributes = array();
 			// sanitize the values before submitting
@@ -244,8 +259,6 @@
 
 			$database->query($sql);
 			return ($database->affected_rows() == 1) ? true : false;
-
-
 		}
 		public function delete(){
 			global $database;
