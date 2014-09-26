@@ -4,7 +4,6 @@ if (!$session->is_logged_in()) {
 	redirect_to("login.php");
 }
 ?>
-
 <?php 
 	$max_file_size = 1048576; 	// expressed in bytes
 								// 10240 		= 	10  KB
@@ -12,14 +11,14 @@ if (!$session->is_logged_in()) {
 								// 1048576 		= 	1 	MB
 								// 104585760 	= 	10  MB
 
-	$message = "";
 	if (isset($_POST['submit'])) {
 		$photo = new Photograph();
 		$photo->caption = $_POST['caption'];
 		$photo->attach_file($_FILES['file_upload']);
 		if ($photo->save()) {
 			// success
-			$message = "Photograph uploaded succesfully";
+			$session->message("Photograph uploaded succesfully");
+			redirect_to('list_photos.php');
 		} else {
 			// failure 
 			$message = join("<br /", $photo->errors);
