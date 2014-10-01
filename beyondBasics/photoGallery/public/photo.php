@@ -11,7 +11,7 @@
 		redirect_to("index.php");
 	}
 
-	// from processing
+	// form processing
 
 	 if(isset($_POST['submit'])){
 	 	$author = trim($_POST['author']);
@@ -40,7 +40,8 @@
 	 }
 
 
-	 $comments = Comment::find_comments_on($photo->id);
+	 // $comments = Comment::find_comments_on($photo->id);
+	 $comments = $photo->comments();
 
 	 // echo "<pre>";
 	 // var_dump($comments);
@@ -71,7 +72,7 @@
 				<?php echo strip_tags($comment->body, '<strong><em><p>'); ?>
 			</div>
 			<div class="meta-info">
-				<?php echo $comment->created; ?>
+				<?php echo datetime_to_text($comment->created); ?>
 			</div>
 		</div>
 	<?php } ?>
