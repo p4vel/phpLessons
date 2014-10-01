@@ -33,3 +33,7 @@ table.log tr td.log_msg{
 	width: 550px;
 	padding: 5px 10px 5px 20px;
 }
+span.page_selected{
+	color: #777777;
+	font-weight: bold;
+}

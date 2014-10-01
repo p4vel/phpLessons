@@ -42,6 +42,14 @@ class User{
 		return $object_array;
 	} 
 
+	public static function count_all(){
+		global $database;
+		$sql = "SELECT COUNT(*) FROM ".self::$table_name;
+		$result_set = $database->query($sql);
+		$row = $database->fetch_array($result_set);
+		return array_shift($row);
+	}
+
 	public static function authenticate($username="", $password=""){
 		global $database;
 		$username = $database->escape_value($username);

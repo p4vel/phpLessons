@@ -7,7 +7,7 @@
 	}
 
 	$photo = Photograph::find_by_id($_GET['id']);
-	if (!photo) {
+	if (!$photo) {
 		$session->message("The photo could not be located.");
 		redirect_to('index.php');
 	} 
