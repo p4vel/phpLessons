@@ -29,6 +29,7 @@ if (!$session->is_logged_in()) {
 	$table_photos_prolog .= "<td>Title</td>";
 	$table_photos_prolog .= "<td>Caption</td>";
 	$table_photos_prolog .= "<td>Size</td>";
+	$table_photos_prolog .= "<td>Comments</td>";
 	$table_photos_prolog .= "<td>&nbsp;</td>";
 	$table_photos_prolog .= "</tr>";
 	echo $table_photos_prolog;
@@ -39,6 +40,7 @@ if (!$session->is_logged_in()) {
 		$row .= "<td>{$photo->filename}</td>" ;
 		$row .= "<td>{$photo->caption}</td>";
 		$row .= "<td>{$photo->size_as_text()}</td>" ;
+		$row .= "<td><a href=\"edit_comments.php?id={$photo->id}\"> edit(" . count($photo->comments()) . ")</a></td>" ;
 		$row .= "<td><a href=delete_photo.php?id={$photo->id}>Delete</a></td>";
 		$row .= "</tr>";
 		echo $row;
