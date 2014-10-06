@@ -19,11 +19,12 @@
 
 	 	$new_comment = Comment::make($photo->id, $author, $body);
 
-	 	// s
-
 	 	if ($new_comment && $new_comment->save()) {
 	 		// comment saved
 	 		// No message needed; seeing the comment itself is proof enough 
+
+	 		// send email !!
+	 		$new_comment->try_send_notification();
 
 	 		// Important!!! You could just let the page render from here.
 	 		// But then if the page is reloaded, the form will try

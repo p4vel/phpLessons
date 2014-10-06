@@ -41,9 +41,10 @@ function include_layout_template($template='')
 		include(SITE_ROOT.DS.'public'.DS.'layouts'.DS.$template);
 }
 
+
 function datetime_to_text($datetime="")
 {
-	$unixdatetime = strftime($datetime);
-	return strftime("%B %d %Y at %I:%M %p", $unixtimestamp);
+	$unixdatetime = strtotime($datetime);
+	return strftime("%B, %d %Y @ %I:%M:%S", $unixdatetime);
 }
 ?>

@@ -41,6 +41,19 @@
 		}
 
 
+		public function try_send_notification(){
+			$mail = new PHPMailer();
+			$mail->FromName 	= "PhotoGallery";
+			$mail->From 	 	= "mczerny@gmx.de";
+			$mail->AddAddress("shavedturtle@gmx.de", "Photo Gallery Admin");
+			$mail->Subject 		= "New Photo Gallery Comment";
+			$created = datetime_to_text($this->created);
+			$mail->Body 		= "At {$created}, {$this->author} wrote:\n\n {$this->body}";
+
+			$result = $mail->Send();
+			return $result;
+		}
+
 		public static function find_all(){
 		return self::find_by_sql("SELECT * FROM users");
 		}

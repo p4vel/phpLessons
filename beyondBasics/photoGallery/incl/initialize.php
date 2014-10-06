@@ -22,6 +22,9 @@
 	require_once(LIB_PATH.DS."session.php");
 	require_once(LIB_PATH.DS."database.php");
 	require_once(LIB_PATH.DS."pagination.php");
+	require_once(LIB_PATH.DS."phpmailer".DS."class.phpmailer.php");
+	require_once(LIB_PATH.DS."phpmailer".DS."class.smtp.php");
+	require_once(LIB_PATH.DS."phpmailer".DS."language".DS."phpmailer.lang-de.php");
 
 	// laod database-related classes
 	require_once(LIB_PATH.DS."user.php");
